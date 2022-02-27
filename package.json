@@ -1,0 +1,35 @@
+{
+  "name": "media_catalog_project",
+  "version": "1.0.0",
+  "description": "Basic image and video catalog website.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fatihtuzunn/media_catalog_project.git"
+  },
+  "keywords": [
+    "madie",
+    "catalog",
+    "image",
+    "photo",
+    "video",
+    "node"
+  ],
+  "author": "Fatih Tuzun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fatihtuzunn/media_catalog_project/issues"
+  },
+  "homepage": "https://github.com/fatihtuzunn/media_catalog_project#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "prettier": "2.5.1"
+  },
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
