@@ -1,0 +1,59 @@
+<%- include('./partials/_header.ejs') %>
+
+
+<body>
+	<div class="tm-page-wrap mx-auto">
+		<div class="position-relative">
+			 <%- include('./partials/_navbar.ejs') %>
+			<div class="tm-welcome-container tm-fixed-header tm-fixed-header-1">
+				<div class="text-center">
+					<p class="pt-5 px-3 tm-welcome-text tm-welcome-text-2 mb-1 text-white mx-auto">Background image can be fixed. Content will simply slide over.</p>                	
+				</div>                
+            </div>
+
+			<!-- Header image -->
+            <div id="tm-fixed-header-bg"></div> 
+		</div>
+
+		<!-- Page content -->
+		<div class="container-fluid">
+			<div class="mx-auto tm-content-container">
+				<main>
+					<div class="row mb-5 pb-4">
+						<div class="col-12">
+							<!-- Video player 1422x800 -->
+<!-- 							<video width="1422" height="800" controls autoplay>
+							  <source src="video/wheat-field.mp4" type="video/mp4">							  
+							Your browser does not support the video tag.
+							</video> -->
+							<img width="1422" height="800" src="<%= photo.image %>" alt="">
+						</div>
+					</div>
+					<div class="row mb-5 pb-5">
+						<div class="col-xl-8 col-lg-7">
+							<!-- Video description -->
+							<div class="tm-video-description-box">
+								<h2 class="mb-5 tm-video-title"><%= photo.title %></h2>
+								<p class="mb-4"><%= photo.description %></p>
+								
+							</div>							
+						</div>
+						<div class="col-xl-4 col-lg-5">
+							<!-- Share box -->
+							<div class="tm-bg-gray tm-share-box">
+								<div class="pl-3 pb-5" >
+									<button class="btn btn-primary p-0 tm-btn-animate tm-btn-download tm-icon-down"><span>Download Photo</span></button>	
+								</div>								
+								<div class="pl-3">
+									<button class="btn btn-danger p-0 tm-btn-animate tm-btn-download tm-icon-down"><span>Delete Photo</span></button>	
+								</div>								
+							</div>
+						</div>
+					</div>
+					
+				</main>
+
+				<!-- Subscribe form and footer links -->
+                <%- include('./partials/_footer.ejs') %>
+</body>
+</html>
