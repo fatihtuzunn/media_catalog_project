@@ -5,6 +5,8 @@ const ejs = require('ejs');
 const Photo = require('./models/Photo');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
+const fs = require('fs');
+const methodOverride = require('method-override');
 
 const app = express();
 
@@ -23,6 +25,10 @@ app.use(express.static('public')); //static files
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(fileUpload());
+
+app.use(methodOverride('_method', {
+  methods:['POST','GET']
+}))
 
 //verileri database e kaydediyoruz
 app.post('/photos', async function (req, res) {
@@ -83,9 +89,39 @@ app.get('/photo', (req, res) => {
 //Route parameters
 app.get('/photos/:photoId', async (req, res) => {
   const photo = await Photo.findById(req.params.photoId);
-  res.render('photo', {
-    photo,
+  res.render('photo', {       //photo sayfasının son kullanıcı için renderla
+    photo,                    // photo sayfasında photo değerine yukardaki const photo değişkenini ata. {photo:photo}
   });
+});
+
+
+app.get('/photos/edit/:id', async (req, res) => {
+  //res.sendFile(path.resolve(__dirname, 'pages/index.html'));
+  const photo = await Photo.findById(req.params.id);
+  res.render('edit', { 
+    photo, 
+  });
+});
+
+app.put('/photos/edit/:photoId', async (req, res) =>{
+await Photo.findByIdAndUpdate(req.params.photoId, {
+  title: req.body.title,
+  description: req.body.description
+
+
+})
+res.redirect(req.get('referer'));
+})
+
+// photo.ejsden yolladığımız delete methodunu yakalıyoruz
+app.delete('/photos/:id', async (req, res) => {
+  const photo = await Photo.findOne({_id:req.params.id}); //silecegimiz fotografı databaseden bulduk photo constuna atadık
+  let deletedImage= __dirname+'/public'+photo.image;      //fotografı klasör dizinimizden bulduk dizin yolumuzu deletedImage'e atadık
+  fs.unlinkSync(deletedImage);                            //filesystem(fs) modülü sayesinde dizindeki fotografı sildik (işlem senkron olmalı)
+  await Photo.findByIdAndRemove(req.params.id);           //databaseden fotograf documentini sildik
+
+  
+  res.redirect('/');
 });
 
 /* app.get('/', (req, res) => {
